@@ -2,8 +2,9 @@
 
 A modern, privacy-friendly anonymous file sharing web application built with Next.js 15, Supabase, and Tailwind CSS.
 
-<img width="1569" height="868" alt="Screenshot 2025-10-30 134817" src="https://github.com/user-attachments/assets/17a6a90d-cd3f-4be2-af7f-62db421742a5" />
+<img width="1630" height="876" alt="Screenshot 2025-12-05 130114" src="https://github.com/user-attachments/assets/9a0a8451-6d82-472e-a52f-1ae0b440d9d2" />
 ## Features
+
 
 - 📁 **Anonymous File Uploads**: Share files without creating an account
 - 🔐 **Password Protection**: Optional password protection for shared files
