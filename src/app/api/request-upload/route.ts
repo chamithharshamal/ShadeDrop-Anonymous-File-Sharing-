@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { supabaseService } from '@/lib/supabaseClient'
 import { v4 as uuidv4 } from 'uuid'
+import bcrypt from 'bcryptjs'
 
 // POST /api/request-upload
 export async function POST(request: Request) {
@@ -28,11 +29,7 @@ export async function POST(request: Request) {
     // Hash password if provided
     let passwordHash = null
     if (password) {
-      const encoder = new TextEncoder()
-      const data = encoder.encode(password)
-      const hashBuffer = await crypto.subtle.digest('SHA-256', data)
-      const hashArray = Array.from(new Uint8Array(hashBuffer))
-      passwordHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
+      passwordHash = await bcrypt.hash(password, 10)
     }
     
     // Save file metadata to database using service role client

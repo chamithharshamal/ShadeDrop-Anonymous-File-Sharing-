@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { supabaseService } from '@/lib/supabaseClient'
+import bcrypt from 'bcryptjs'
 
 // DELETE /api/delete/[id]
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -25,6 +26,25 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     
     if (fileError || !file) {
       return NextResponse.json({ error: 'File not found' }, { status: 404 })
+    }
+    
+    // Check password if the file is protected
+    if (file.password_hash) {
+      try {
+        const body = await request.json()
+        const { password } = body
+        
+        if (!password) {
+          return NextResponse.json({ error: 'Password required' }, { status: 401 })
+        }
+        
+        const isValidPassword = await bcrypt.compare(password, file.password_hash)
+        if (!isValidPassword) {
+          return NextResponse.json({ error: 'Invalid password' }, { status: 401 })
+        }
+      } catch (e) {
+        return NextResponse.json({ error: 'Password required' }, { status: 401 })
+      }
     }
     
     // Delete from storage using service role client

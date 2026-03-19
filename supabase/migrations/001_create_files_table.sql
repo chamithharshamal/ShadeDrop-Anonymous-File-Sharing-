@@ -26,13 +26,13 @@ CREATE POLICY "Anyone can insert files" ON files
 FOR INSERT TO anon
 WITH CHECK (true);
 
--- Create policy to allow selects for file downloads
+-- Create policy to allow selects for file downloads (disabled for anon, use service key instead)
 CREATE POLICY "Anyone can select files" ON files
 FOR SELECT TO anon
-USING (true);
+USING (false);
 
--- Create policy to allow updates for sent status
+-- Create policy to allow updates for sent status (disabled for anon, use service key instead)
 CREATE POLICY "Anyone can update sent status" ON files
 FOR UPDATE TO anon
-USING (true)
-WITH CHECK (true);
+USING (false)
+WITH CHECK (false);

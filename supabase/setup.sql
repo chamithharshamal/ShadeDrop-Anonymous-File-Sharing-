@@ -34,10 +34,10 @@ CREATE POLICY "Allow insert for all" ON files
 FOR INSERT WITH CHECK (true);
 
 CREATE POLICY "Allow select for all" ON files
-FOR SELECT USING (true);
+FOR SELECT USING (false);
 
 CREATE POLICY "Allow update for all" ON files
-FOR UPDATE USING (true) WITH CHECK (true);
+FOR UPDATE USING (false) WITH CHECK (false);
 
 -- Grant necessary permissions
 GRANT ALL ON TABLE files TO anon;

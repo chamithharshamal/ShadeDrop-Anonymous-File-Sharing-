@@ -277,6 +277,10 @@ Please contact the person who shared this link with you.`)
       // Call delete API endpoint
       const response = await fetch(`/api/delete/${id}`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password: password || undefined }),
       })
 
       const data = await response.json()

@@ -48,10 +48,7 @@ export default function DiagnosePage() {
   const runAllTests = async () => {
     setResults({})
     
-    // Test 1: List all files
-    await runTest('listFiles', '/api/list-files')
-    
-    // Test 2: Verify policies
+    // Test 1: Verify policies
     await runTest('verifyPolicies', '/api/verify-policies')
     
     // Test 3: Verify specific file retrieval
@@ -130,7 +127,6 @@ export default function DiagnosePage() {
             <ol className="list-decimal list-inside space-y-2 text-gray-300">
               <li>Run all tests above to identify the issue</li>
               <li>Check if files are being stored in the database correctly</li>
-              <li>Verify that RLS policies allow anonymous access</li>
               <li>Ensure the file ID format is correct (UUID)</li>
               <li>Check browser console for JavaScript errors</li>
               <li>Verify Supabase environment variables are correctly set</li>

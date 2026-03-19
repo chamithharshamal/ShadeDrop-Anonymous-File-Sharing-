@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { supabaseService } from '@/lib/supabaseClient'
+import bcrypt from 'bcryptjs'
 
 // GET /api/download/[id]?password=...
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -80,15 +81,10 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
         return NextResponse.json({ error: 'Password required' }, { status: 401 })
       }
       
-      // Hash the provided password
-      const encoder = new TextEncoder()
-      const data = encoder.encode(password)
-      const hashBuffer = await crypto.subtle.digest('SHA-256', data)
-      const hashArray = Array.from(new Uint8Array(hashBuffer))
-      const passwordHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
-      
       // Compare with stored hash
-      if (passwordHash !== file.password_hash) {
+      const isValidPassword = await bcrypt.compare(password, file.password_hash)
+      
+      if (!isValidPassword) {
         console.error('Invalid password provided')
         return NextResponse.json({ error: 'Invalid password' }, { status: 401 })
       }
